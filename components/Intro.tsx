@@ -8,8 +8,10 @@ import { HiDownload } from 'react-icons/hi'
 import portrait from '@/public/portrait.jpg'
 import Link from 'next/link';
 import { useSectionInView } from '@/lib/hooks';
+import { useActiveSectionContext } from '@/context/ActiveSectionContext';
 
 export default function Intro() {
+  const { activeSection, setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
   const { ref } = useSectionInView('Home', 0.5);
 
   return (
@@ -60,19 +62,24 @@ export default function Intro() {
           delay: .1,
         }}
       >
-        <Link href='#contact' className='group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-105 hover:bg-gray-950 active:scale-105 transition'>
+        <Link href='#contact' className='group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-105 hover:bg-gray-950 active:scale-105 transition'
+          onClick={() => {
+            setActiveSection('Contact');
+            setTimeOfLastClick(Date.now());
+          }}
+        >
           Contact me here <BsArrowRight className='opacity-70 group-hover:translate-x-1 transition' />
         </Link>
 
-        <a href='/CV.pdf' download className='group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-105 active:scale-105 transition cursor-pointer border border-black/10'>
+        <a href='/CV.pdf' download className='group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-105 active:scale-105 transition cursor-pointer borderBlack'>
           Download CV <HiDownload className='opacity-60 group-hover:translate-y-1 transition' />
         </a>
 
-        <a href='https://linkedin.com' target='_blank' className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.27rem] rounded-full focus:scale-110 hover:scale-110 hover:text-gray-950 active:scale-105 transition cursor-pointer border border-black/10">
+        <a href='https://linkedin.com' target='_blank' className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.27rem] rounded-full focus:scale-110 hover:scale-110 hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack">
           <BsLinkedin />
         </a>
 
-        <a href='https://github.com/' target='_blank' className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-110 hover:text-gray-950 hover:scale-110 active:scale-105 transition cursor-pointer border border-black/10">
+        <a href='https://github.com/' target='_blank' className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-110 hover:text-gray-950 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack">
           <BsGithub />
         </a>
 
